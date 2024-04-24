@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* türk lirası cinsinden dövizler */
+        #tur{
+            position: absolute;
+            height: auto;
+            width: auto;
+            border: solid 1px yellow;
+           overflow: hidden;
+        }
+
+        /* usd abd doları cinsinden  dövizler */
+        #dll{
+            position: absolute;
+            height: 400px;
+            width: 600px;
+            left: 500px;
+        
+            border: solid 1px yellow;
+                }
+                /* usd buttonu */
+                #dolr{
+                    position: absolute;
+                    top: 1px;
+                    left: 300px;
+
+                }
+                /* ingiliz sterlini */
+                #ing{
+                    position: absolute;
+            height: auto;
+            width: auto;
+            left: 500px;
+            border: solid 1px yellow;
+
+                }
+                /* gbp buttonu */
+                #ingp{
+                    position: absolute;
+                    left: 200px;
+                    top: 1px;
+
+                }
+
+              
+    </style>
+</head>
+<body>
+ 
+    
+
+
+<!-- türk lirası cinsinden dövizler -->
+
+
+    <div id="tur"></div>
+
+
+    
+
+
+<!-- usd abd doları cinsinden  dövizler -->
+<button onclick="abd()" id="dolr">abd dollarrı</button>
+<button onclick="tt()" id="tr">türk lirası</button>
+
+
+    
+    <p  id="dll"></p>
+
+  
+    
+
+<script>
+    function tt(){
+    /* türk lirası */
+fetch('https://api.exchangerate-api.com/v4/latest/TRY')
+.then(Response=> Response.json())
+.then(data=>{
+    var üğğ=data.rates
+    var ffg='';
+
+    for(var y in üğğ){
+        ffg +='<p>'+y+":"+üğğ[y] +'</p>'
+    }
+    document.getElementById("tur").innerHTML="türk lirası cinsinden:"+ffg
+    document.getElementById("dll").style.display="none"
+    document.getElementById("tur").style.display="block"
+
+} )
+   
+
+    }
+
+
+function abd() {
+
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+  .then(Response=> Response.json())
+  .then(data=> {
+    var o=data.rates;
+    var h='';
+    document.getElementById("tur").style.display="none"
+    document.getElementById("dll").style.display="block"
+
+    
+
+    for(var r in o){
+        h +='<p>'+ r+':'+o[r]+'</p>'
+    }
+document.getElementById("dll").innerHTML=h
+
+
+  })
+
+}
+
+</script>    
+</body>
+</html>
