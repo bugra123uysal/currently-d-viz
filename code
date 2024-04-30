@@ -3,87 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dene</title>
+    <title>Döviz fiyatları</title>
     <style>
-        #yazzdır{
+           #tlk{  /*  türklirası cincinden olan */
             position: absolute;
-            top: 50px;
+            top: 100px;
+            left: 10px;
+            width: 1490px;
         }
+        .yk{
+          text-align: center;
+          
+        }
+           /* fiyatlara yakınlaştırma yapmak için */
+      .yk:hover {
+        position: relative;
+        scale: 1.2;
+        
+      
+      
+      }
+         /* tek sayılar */
+  tr:nth-child(odd){
+    background-color: greenyellow;
+  }
+
+  tr:nth-child(ever){
+    background-color: white;
+  }
+   
+  /* menüü */
+  button{
+    position: relative;
+    text-decoration: none;
+    padding: 5px;
+    margin: 15px;
+    color: black;
+    background-color: aqua;
+    border: 0;
+    /* geçiş */
+    transition: 1s;
+    
+     
+  }
+  
+
+  button:hover{
+    /* büyüme */
+    scale: 1.1;
+    /* yamultma */
+    rotate: 1deg;
+    
+    background-color: yellow;
+    color: black;
+   
+
+  }
+
+  
+
+ 
+      
+
     </style>
 </head>
 <body>
+  
+  <base target="_blank" >
+<!-- menü  -->
+  
+  
+   
+        <!-- türklirası cincinden olan kurlar -->
+        <h3> dollar  cinsinden</h3>
+    <table border="1" id="tlk" >
+       
+        <tr>
+        
+     <th>türk lirası/TRY </th>
+     <td ><p class="yk"   id="dollartry"></p>   </td>  	
 
    
 
+    </tr>
 
- 
-    <table border="1px" >
-        
-            <tr>
-                <p id="yazzdır"></p>
+    <tr> 
+        <th> 	Çin Yuanı/TRY </th>              
+      <td ><p class="yk"   id="yutry"></p>  
+       </td>	
+  </tr>
 
-            </tr>
+    <tr>
+      <th>Norveç Kronu /TRY</th>              
+      <td ><p class="yk"   id="nobtry"></p>   </td> 
+     </tr>
+
+    <tr>   <th>Rus Rublesi /TRY</th>              
+      <td ><p class="yk"   id="rubtry"></p>   </td> 
+    </tr>
+  
+  
+    <tr>
         
+        <th>euro/TRY</th>
+        <td><p class="yk" id="eurotry"> </p></td>
+
+    
+      
+       <tr>
+
+        <th>Japon Yeni /TRY </th>
+        <td> <p class="yk" id="jptry" ></p> </td>
+       </tr>
+
+       <tr>
+        <th>İngiliz Sterlini /TRY </th>
+        <td><p class="yk" id="gbptry"></p></td>
+
+       </tr>
+       <tr>
+        <th> Avustralya Doları /TRY </th>
+        <td> <p class="yk"  id="audtry"></p> </td>
+
+        
+       </tr>
+       <tr>
+        <th> İsviçre Frangı /TRY </th>
+        <td><p class="yk" id="chftry" > </p> </td>
+        
+       </tr>
+
+       <tr>
+        <th>Kanada Doları/TRY</th>
+        <td><p class="yk" id="cadtry"></p></td>
+        
+       </tr>
+
     </table>
-    <button onclick="dara()" >USD</button>
-    <button onclick="dar()">EUR </button>
-
-
     <script>
-        
-function dara(üüü){
-   
+    /* webden veri al */
+    /* dollar bazlı KUR veri alma */
+   fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=TRY,EUR,GBP,CAD,CHF,JPY,RUB,NOK,CNY,SAR,DKK')
+   .then( Response => Response.json())
+   .then(data => {
+    
+    var dt=data.TRY;
+    document.getElementById("dollartry").innerHTML=dt
+
+
+    var eurotry=data.EUR;
+    document.getElementById("eurotry").innerHTML=eurotry
+
+    var gbptry=data.GBP; 
+        document.getElementById("gbptry").innerHTML=gbptry
+
+        var kanadatr= data.GBP;
+    document.getElementById("cadtry").innerHTML=kanadatr
+
+    var audtr= data.USD;
+    document.getElementById("audtry").innerHTML=audtr
+
+    var chftr=data.CHF;
+    document.getElementById("chftry").innerHTML=chftr
+
+    var jpytr=data.JPY;
+document.getElementById("jptry").innerHTML=jpytr
+
+
+var rubtr=data.RUB;
+document.getElementById("rubtry").innerHTML=rubtr
+
+var noktr=data.NOK;
+document.getElementById("nobtry").innerHTML=noktr
+
+var yktr=data.CNY;
+document.getElementById("yutry").innerHTML=yktr
+
+
+
+var ktr=data.DKK;
+document.getElementById("krtry").innerHTML=ktr
+
+
+   })
+   .catch(Error=>console.log("tekrar deneyiniz",error) )  
+
  
-
-fetch('https://api.exchangerate-api.com/v4/latest/USD')
-.then(Response=> Response.json())
-.then(data=> {
-
-var o=data.rates;
-var ü='';
-
-
-for(var b in o){
-ü +='<p>'+b+':'+o[b];
-}
-
-
-
-document.getElementById("yazzdır").innerHTML="="+ü
-
-
-})
-
-}
-
-
-function dar(){
-
-
-fetch('https://api.exchangerate-api.com/v4/latest/EUR')
-.then(Response=> Response.json())
-.then(data=> {
-
-var öm=data.rates;
-var u='';
-
-
-for(var y in öm){
-u +='<p>'+y+':'+öm[y];
-}
-
-
-
-document.getElementById("yazzdır").innerHTML="="+u
-
-
-})
-
-}
-
 
 
     </script>
-  
+    
 </body>
 </html>
